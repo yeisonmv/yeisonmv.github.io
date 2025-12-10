@@ -5,186 +5,95 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Portafolio - Yeison MV</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-:root {
-    --accent: #00e0b8;
-    --glass-bg-dark: rgba(255,255,255,0.08);
-    --glass-bg-light: rgba(0,0,0,0.05);
-    --transition: 0.35s ease;
+body { margin:0; font-family:"Poppins", sans-serif; background:#0c0c0c; color:#e5e5e5; transition:0.3s; }
+body.light { background:#fff; color:#222; }
+header { text-align:center; padding:50px 20px; }
+.profile-pic { width:160px; height:160px; border-radius:50%; object-fit:cover; border:4px solid #00e0b8; box-shadow:0 0 20px rgba(0,224,184,0.6); }
+nav { background:#111; padding:15px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:1000; }
+nav .logo { font-weight:600; color:#00e0b8; margin-left:15px; }
+.nav-links { display:flex; gap:15px; margin-right:20px; position:relative; }
+.nav-links a { color:white; text-decoration:none; font-weight:500; padding:8px 12px; transition:color 0.3s; }
+.nav-links a:hover { color:#00e0b8; }
+
+/* DROPDOWN */
+.dropdown { position:relative; }
+.dropdown-content { display:none; position:absolute; background:#111; top:100%; left:0; min-width:200px; flex-direction:column; border-radius:5px; overflow:hidden; }
+.dropdown-content a { padding:10px; color:white; text-decoration:none; display:block; transition:0.3s; }
+.dropdown-content a:hover { background:rgba(0,224,184,0.2); }
+.dropdown:hover .dropdown-content { display:flex; }
+
+/* MOBILE */
+.menu-btn { display:none; cursor:pointer; }
+.menu-btn div { width:28px; height:3px; background:white; margin:6px 0; transition:0.4s; }
+@media(max-width:750px) {
+  .nav-links { display:none; flex-direction:column; width:100%; text-align:center; }
+  .nav-links.show { display:flex; }
+  .menu-btn { display:block; }
 }
 
-html { scroll-behavior: smooth; }
-
-body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    transition: background var(--transition), color var(--transition);
-}
-
-body.dark { background: #0c0c0c; color: #e5e5e5; }
-body.light { background: #ffffff; color: #222; }
-
-header { text-align: center; padding: 50px 20px; animation: fadeIn 1s ease; }
-.profile-pic { width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid var(--accent); box-shadow: 0 0 20px rgba(0,224,184,0.6); }
-
-nav {
-    background: #111;
-    padding: 15px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav .logo { font-weight: 600; color: var(--accent); margin-left: 15px; }
-nav a { color: white; margin: 0 10px; text-decoration: none; font-weight: 500; transition: color .3s; }
-nav a:hover { color: var(--accent); }
-.menu-btn { display: none; cursor: pointer; margin-right: 15px; transition: 0.3s; }
-.menu-btn div { width: 28px; height: 3px; background: white; margin: 6px 0; transition: 0.4s; }
-.nav-links { display: flex; gap: 15px; margin-right: 20px; }
-
-@media (max-width: 750px) {
-    .nav-links { display: none; flex-direction: column; background: #111; width: 100%; text-align: center; padding: 20px 0; transition: max-height 0.5s ease; overflow: hidden; }
-    .nav-links.show { display: flex; }
-    .menu-btn { display: block; }
-}
-
-section { max-width: 900px; margin: auto; padding: 50px 20px; opacity:0; transform: translateY(20px); transition: all 0.8s ease; }
-section.visible { opacity:1; transform: translateY(0); }
-
-h2 { margin-bottom: 15px; }
-
-/* TARJETAS GLASSMORPHIC */
-.card {
-    background: var(--glass-bg-dark);
-    backdrop-filter: blur(12px);
-    padding: 25px;
-    border-radius: 15px;
-    margin-bottom: 25px;
-    transition: transform 0.4s, background 0.4s, box-shadow 0.4s;
-    cursor: pointer;
-}
-body.light .card { background: var(--glass-bg-light); }
-.card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 12px 25px rgba(0,0,0,0.25); }
-
-/* BOTÓN TEMA */
-.theme-toggle { position: fixed; right: 20px; bottom: 20px; padding: 12px 22px; border-radius: 25px; border: none; font-weight: 600; cursor: pointer; background: var(--accent); color: #000; box-shadow: 0 0 15px rgba(0,224,184,0.5); }
-
-/* ANIMACIONES */
-@keyframes fadeIn { from { opacity:0; transform: scale(0.95);} to {opacity:1; transform: scale(1);} }
+/* SECCIÓN */
+section { max-width:900px; margin:auto; padding:50px 20px; opacity:0; transform:translateY(20px); transition:all 0.8s ease; }
+section.visible { opacity:1; transform:translateY(0); }
+.theme-toggle { position:fixed; right:20px; bottom:20px; padding:12px 22px; border-radius:25px; border:none; font-weight:600; cursor:pointer; background:#00e0b8; color:#000; box-shadow:0 0 15px rgba(0,224,184,0.5); }
 </style>
 </head>
-
 <body class="dark">
 
 <nav>
-    <div class="logo">Yeison MV</div>
-    <div class="menu-btn" onclick="toggleMenu(this)">
-        <div></div><div></div><div></div>
+  <div class="logo">Yeison MV</div>
+  <div class="menu-btn" onclick="toggleMenu(this)"><div></div><div></div><div></div></div>
+  <div class="nav-links" id="navLinks">
+    <a href="index.html">Sobre mí</a>
+    <div class="dropdown">
+      <a href="portafolios.html">Portafolios ▾</a>
+      <div class="dropdown-content">
+        <a href="portafolios.html#sig">SIG</a>
+        <a href="portafolios.html#analisis">Análisis de Datos</a>
+        <a href="portafolios.html#gestion">Gestión de Recursos Naturales</a>
+      </div>
     </div>
-    <div class="nav-links" id="navLinks">
-        <a href="#sobre">Sobre mí</a>
-        <a href="#portafolios">Portafolios</a>
-        <a href="#certificaciones">Certificaciones</a>
-        <a href="#cv">CV</a>
-        <a href="#contacto">Contacto</a>
-    </div>
+    <a href="certificaciones.html">Certificaciones</a>
+    <a href="cv.html">CV</a>
+    <a href="contacto.html">Contacto</a>
+  </div>
 </nav>
 
 <header>
-    <img src="1Perf.jpg" class="profile-pic">
-    <h1>Yeison MV</h1>
-    <p>Técnico Ambiental | Analista de Datos | Gestión de Recursos Naturales</p>
+  <img src="1Perf.jpg" class="profile-pic">
+  <h1>Yeison MV</h1>
+  <p>Técnico Ambiental | Analista de Datos | Gestión de Recursos Naturales</p>
 </header>
 
 <section id="sobre">
-    <h2>Sobre mí</h2>
-    <p>
-        Soy un profesional con más de 4 años de experiencia en monitoreo de vida silvestre, análisis de datos, GIS, certificaciones ambientales y desarrollo de proyectos de sostenibilidad y cambio climático.
-        También tengo experiencia en gestión de proyectos, coordinación de programas ambientales y uso avanzado de Microsoft Office y herramientas de recopilación de datos.
-    </p>
+  <h2>Sobre mí</h2>
+  <p>
+    Soy un profesional con más de 4 años de experiencia en monitoreo de vida silvestre, análisis de datos, GIS, certificaciones ambientales y desarrollo de proyectos de sostenibilidad y cambio climático.
+    También tengo experiencia en gestión de proyectos, coordinación de programas ambientales y uso avanzado de Microsoft Office y herramientas de recopilación de datos.
+  </p>
 </section>
 
-<section id="portafolios">
-    <h2>Portafolios</h2>
-
-    <div class="card">
-        <h3>Sistemas de Información Geográfica (SIG)</h3>
-        <p>Sección para tus proyectos de SIG. Más adelante se añadirán fotos, mapas y datos.</p>
-    </div>
-
-    <div class="card">
-        <h3>Análisis de Datos</h3>
-        <p>Sección para tus proyectos de análisis de datos. Añadirás gráficos, informes y visualizaciones.</p>
-    </div>
-
-    <div class="card">
-        <h3>Gestión de Recursos Naturales</h3>
-        <p>Sección para tus proyectos de gestión ambiental y conservación de recursos naturales.</p>
-    </div>
-</section>
-
-<section id="certificaciones">
-    <h2>Certificaciones</h2>
-
-    <div class="card">
-        <h3>Certificación 1</h3>
-        <p>Institución / Año</p>
-    </div>
-    <div class="card">
-        <h3>Certificación 2</h3>
-        <p>Institución / Año</p>
-    </div>
-</section>
-
-<section id="cv">
-    <h2>Currículum</h2>
-    <div class="card">
-        <h3>Descargar CV PDF</h3>
-        <p>Da clic para descargar tu CV.</p>
-        <a href="cv.pdf" download>📄 Descargar CV</a>
-    </div>
-    <div class="card">
-        <h3>Ver CV estilo Web</h3>
-        <p>Haz clic para abrir tu CV directamente en esta página web.</p>
-        <a href="cv-web.html">🌐 Ver CV en línea</a>
-    </div>
-</section>
-
-<section id="contacto">
-    <h2>Contacto</h2>
-    <p>Email: yeisonma@gmail.com</p>
-</section>
-
-<footer style="text-align:center; padding:20px;">
-    © 2025 Yeison MV – Todos los derechos reservados
-</footer>
-
+<footer style="text-align:center; padding:20px;">© 2025 Yeison MV – Todos los derechos reservados</footer>
 <button class="theme-toggle" onclick="toggleTheme()">Cambiar tema</button>
 
 <script>
 function toggleTheme() {
-    document.body.classList.toggle("dark");
-    document.body.classList.toggle("light");
+  document.body.classList.toggle("dark");
+  document.body.classList.toggle("light");
 }
 
 function toggleMenu(x) {
-    x.classList.toggle("open");
-    document.getElementById("navLinks").classList.toggle("show");
+  x.classList.toggle("open");
+  document.getElementById("navLinks").classList.toggle("show");
 }
 
-// Animación de secciones al hacer scroll
+// Animación de secciones
 const sections = document.querySelectorAll("section");
 const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add("visible");
-    });
+  entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add("visible"); });
 }, { threshold: 0.1 });
-
 sections.forEach(section => observer.observe(section));
 </script>
+
 </body>
 </html>
